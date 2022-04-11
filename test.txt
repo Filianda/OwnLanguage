@@ -1,0 +1,4 @@
+start
+array { 5 }
+array { 5 ; a ; 6.8; -5.0}
+stop 
