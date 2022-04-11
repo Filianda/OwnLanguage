@@ -5,4 +5,11 @@ print(5)
 print("ala")
 input(2)
 input("ala")
+2+2
+2-2
+2*2
+2/2
+2-(2-2)
+2.4 - 0.4
+2.4 - - 0.4
 stop 
