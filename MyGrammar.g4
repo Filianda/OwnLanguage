@@ -76,9 +76,13 @@ body
 	| accessrules
 	| classDecl
 	| classCall
+	| assigment
 	| number 
 	| STRING
 	| ID
+	;
+assigment
+	: ID '=' value
 	;
 classDecl
 	: CLASS ID '|' value?|array? '|' ':' block
