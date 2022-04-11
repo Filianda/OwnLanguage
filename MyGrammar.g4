@@ -63,12 +63,16 @@ body
 	| forLoop
 	| whileLoop
 	| functionDecl
+	| functionCall
 	| number 
 	| STRING
 	| ID
 	;
 functionDecl
 	: FUNC ID '(' value?|array? '):' block
+	;
+functionCall
+	: CALL ID '(' value?|array? ')'
 	;
 forLoop
 	: FOR INT '->' INT ':' block	
