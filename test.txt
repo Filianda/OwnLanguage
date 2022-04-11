@@ -33,4 +33,5 @@ global xs1
 local fh
 class asd ||: {mama}
 class asd |a|
+as3 = 6.7
 stop 
