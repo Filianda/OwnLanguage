@@ -63,10 +63,9 @@ main
 	: START body* STOP
 	;
 body	
-	: array
-	| enteroperations
+	: enteroperations
 	| arithmetic
-	| concat
+	| subbody
 	| ifOperation
 	| condition
 	| forLoop
@@ -77,12 +76,15 @@ body
 	| classDecl
 	| classCall
 	| assigment
-	| number 
-	| STRING
-	| ID
+	| value
+	;
+subbody
+	: array  
+	| concat 
+	| condition 
 	;
 assigment
-	: ID '=' value
+	: ID '=' (subbody | value) ';'
 	;
 classDecl
 	: CLASS ID '|' value?|array? '|' ':' block
