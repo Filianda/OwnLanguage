@@ -1,0 +1,38 @@
+start
+array { 5 }
+array { 5 ; "a" ; a ; a2 ; 6.8; -5.0}
+print(5)
+print("ala")
+input d
+input s
+2+2
+2-2
+2*2
+2/2
+2-(2-2)
+2.4 - 0.4
+2.4 - - 0.4
+ala+ela
+4<5
+4?=8
+5.6!=-8.9
+45 <= 8
+ala >= tomek
+a1 > 4
+if 4<5 : {2+2}
+if 4<5 : {2+2} else : {2-2}
+for 1 -> 2 : {2-2}
+while 4<5 : {2-2}
+while 4<5 : {while 5>4 : {0}}
+func xa (ala):{2-2}
+func xa1 (ala):{2-2}
+func xa1 (array{ 5 ; "a" ; a ; a2 ; 6.8; -5.0}):{2-2}
+call xa1 (ala)
+call xa1 (array{ 5 ; "a" ; a ; a2 ; 6.8; -5.0})
+global xs1
+local fh
+class asd ||: {mama}
+class asd |a|
+as3 = 6.7 ;
+as4 = ala+ela ;
+stop

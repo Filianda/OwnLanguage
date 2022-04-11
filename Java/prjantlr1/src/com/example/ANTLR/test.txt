@@ -1,0 +1,22 @@
+hi
+    let a be 5
+    let b be 10
+
+    read v
+
+    arr f[ 1,2, 4, 5, 566]
+    arr h["s2_s","dfa", 3, 4]
+    arr g[R-4.3,"dfa", 3, 4]
+
+    "ALA"+"ma"
+
+    3+4+3+4
+    4-3
+    3*4
+    4/2
+
+    print b
+
+    print 3
+    print "ALA"
+bye

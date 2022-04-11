@@ -1,0 +1,15 @@
+start
+    a = 3+2*2;
+    b = 4-2;
+    c = 2*3;
+    d = 10/2;
+
+    print (a)
+    print (b)
+    print (c)
+    print (d)
+
+    input d
+    print (d)
+
+stop
