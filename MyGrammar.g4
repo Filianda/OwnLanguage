@@ -32,6 +32,12 @@ FUNC
 CALL
 	:'call'
 	;
+GLOBAL
+	:'global'
+	;
+LOCAL
+	:'local'
+	;
 ID
 	: [a-zA-Z]+[0-9]?'_'?
 	;
@@ -64,9 +70,13 @@ body
 	| whileLoop
 	| functionDecl
 	| functionCall
+	| accessrules
 	| number 
 	| STRING
 	| ID
+	;
+accessrules
+	: GLOBAL|LOCAL value
 	;
 functionDecl
 	: FUNC ID '(' value?|array? '):' block
