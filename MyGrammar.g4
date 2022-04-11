@@ -14,6 +14,12 @@ PRINT
 INPUT 
 	: 'input'
 	;
+IF
+	:'if'
+	;
+ELSE
+	:'else'
+	;
 ID
 	: [a-zA-Z]+[0-9]?'_'?
 	;
@@ -40,10 +46,22 @@ body
 	| enteroperations
 	| arithmetic
 	| concat
+	| ifOperation
+	| condition
 	| number 
 	| STRING
-	| ID 
-	;	
+	| ID
+	;
+ifOperation
+	: IF  condition ':' block  (ELSE ':' block)? ;
+condition
+	: value('<'|'>')value
+	| value('<='|'>=')value
+	| value('?='|'!=')value
+	;
+block
+	: '{' body* '}'
+	;
 arithmetic
 	: arithmetic('+'|'-')arithmetic
 	| arithmetic('*'|'/')arithmetic
