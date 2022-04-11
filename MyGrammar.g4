@@ -12,11 +12,9 @@ INT
 	: [0-9]+
 	;
 REAL 
-	: [-+]?([0-9]*/.[0-9]+|[0-9]+)
+	: [-+]?[0-9]*'.'[0-9]+|[0-9]+
 	;
-VAR 
-	: [/w+/d?_?]
-	;
+
 WHITESPACE
 	: [ \t]+ -> skip
 	;
@@ -27,8 +25,7 @@ main
 	: START body* STOP
 	;
 body	
-	: VAR 
-	| number 
+	: number 
 	| STRING 
 	| array
 	;
@@ -43,5 +40,4 @@ array
 value
 	:number
 	|STRING
-	|VAR
 	;
