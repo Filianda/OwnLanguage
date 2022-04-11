@@ -26,4 +26,7 @@ while 4<5 : {2-2}
 while 4<5 : {while 5>4 : {0}}
 func xa (ala):{2-2}
 func xa1 (ala):{2-2}
+func xa1 (array{ 5 ; "a" ; a ; a2 ; 6.8; -5.0}):{2-2}
+call xa1 (ala)
+call xa1 (array{ 5 ; "a" ; a ; a2 ; 6.8; -5.0})
 stop 
