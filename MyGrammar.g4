@@ -26,6 +26,12 @@ FOR
 WHILE
 	:'while'
 	;
+FUNC
+	:'func'
+	;
+CALL
+	:'call'
+	;
 ID
 	: [a-zA-Z]+[0-9]?'_'?
 	;
@@ -56,9 +62,13 @@ body
 	| condition
 	| forLoop
 	| whileLoop
+	| functionDecl
 	| number 
 	| STRING
 	| ID
+	;
+functionDecl
+	: FUNC ID '(' value?|array? '):' block
 	;
 forLoop
 	: FOR INT '->' INT ':' block	
