@@ -38,6 +38,9 @@ GLOBAL
 LOCAL
 	:'local'
 	;
+CLASS
+	:'class'
+	;
 ID
 	: [a-zA-Z]+[0-9]?'_'?
 	;
@@ -71,9 +74,17 @@ body
 	| functionDecl
 	| functionCall
 	| accessrules
+	| classDecl
+	| classCall
 	| number 
 	| STRING
 	| ID
+	;
+classDecl
+	: CLASS ID '|' value?|array? '|' ':' block
+	;
+classCall
+	: CALL ID '|' value?|array? '|'
 	;
 accessrules
 	: GLOBAL|LOCAL value
