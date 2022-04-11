@@ -5,8 +5,20 @@ START
 STOP 
 	: 'stop'
 	;
+ARRAYS
+	: 'array'
+	;
+PRINT
+	: 'print'
+	;
+INPUT 
+	: 'input'
+	;
+ID
+	: [a-zA-Z]+[0-9]?'_'?
+	;
 STRING 
-	: [a-zA-Z]+
+	: '"'[a-zA-Z]+'"'
 	;
 INT 
 	: [0-9]+
@@ -26,18 +38,23 @@ main
 	;
 body	
 	: number 
-	| STRING 
+	| STRING
+	| ID 
 	| array
+	| enteroperations
 	;
+enteroperations
+	: (PRINT | INPUT) '(' value ')';
 number
 	:INT
 	|REAL
 	;
 
 array
-	: 'array''{' value ( ';' value)*'}'
+	: ARRAYS'{' value ( ';' value)*'}'
 	;
 value
 	:number
 	|STRING
+	|ID
 	;
