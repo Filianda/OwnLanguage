@@ -31,4 +31,6 @@ call xa1 (ala)
 call xa1 (array{ 5 ; "a" ; a ; a2 ; 6.8; -5.0})
 global xs1
 local fh
+class asd ||: {mama}
+class asd |a|
 stop 
