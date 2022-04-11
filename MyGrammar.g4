@@ -24,9 +24,8 @@ INT
 	: [0-9]+
 	;
 REAL 
-	: [-+]?[0-9]*'.'[0-9]+|[0-9]+
+	: [-+]?[0-9]*'.'[0-9]+
 	;
-
 WHITESPACE
 	: [ \t]+ -> skip
 	;
@@ -37,17 +36,26 @@ main
 	: START body* STOP
 	;
 body	
-	: number 
+	: array
+	| enteroperations
+	| arithmetic
+	| number 
 	| STRING
 	| ID 
-	| array
-	| enteroperations
+	;	
+arithmetic
+	: arithmetic('+'|'-')arithmetic
+	| arithmetic('*'|'/')arithmetic
+	| number
+	| '-'number
+	| '(' arithmetic ')'
 	;
+
 enteroperations
 	: (PRINT | INPUT) '(' value ')';
 number
-	:INT
-	|REAL
+	:REAL
+	|INT
 	;
 
 array
