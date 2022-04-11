@@ -39,6 +39,7 @@ body
 	: array
 	| enteroperations
 	| arithmetic
+	| concat
 	| number 
 	| STRING
 	| ID 
@@ -49,6 +50,11 @@ arithmetic
 	| number
 	| '-'number
 	| '(' arithmetic ')'
+	;
+concat
+	:concat'+'concat
+	|STRING
+	|ID
 	;
 
 enteroperations
