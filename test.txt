@@ -21,4 +21,7 @@ ala >= tomek
 a1 > 4
 if 4<5 : {2+2}
 if 4<5 : {2+2} else : {2-2}
+for 1 -> 2 : {2-2}
+while 4<5 : {2-2}
+while 4<5 : {while 5>4 : {0}}
 stop 
