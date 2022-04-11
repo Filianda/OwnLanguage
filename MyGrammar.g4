@@ -20,6 +20,12 @@ IF
 ELSE
 	:'else'
 	;
+FOR
+	:'for'
+	;
+WHILE
+	:'while'
+	;
 ID
 	: [a-zA-Z]+[0-9]?'_'?
 	;
@@ -48,9 +54,17 @@ body
 	| concat
 	| ifOperation
 	| condition
+	| forLoop
+	| whileLoop
 	| number 
 	| STRING
 	| ID
+	;
+forLoop
+	: FOR INT '->' INT ':' block	
+	;
+whileLoop
+	: WHILE condition ':' block
 	;
 ifOperation
 	: IF  condition ':' block  (ELSE ':' block)? ;
