@@ -94,19 +94,19 @@ public interface MyGrammarVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitBlock(MyGrammarParser.BlockContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code add}
-	 * labeled alternative in {@link MyGrammarParser#arithmetic}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitAdd(MyGrammarParser.AddContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code div}
 	 * labeled alternative in {@link MyGrammarParser#arithmetic}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitDiv(MyGrammarParser.DivContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code add}
+	 * labeled alternative in {@link MyGrammarParser#arithmetic}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAdd(MyGrammarParser.AddContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code sub}
 	 * labeled alternative in {@link MyGrammarParser#arithmetic}.
@@ -156,12 +156,19 @@ public interface MyGrammarVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitPrint(MyGrammarParser.PrintContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code input}
+	 * Visit a parse tree produced by the {@code inputint}
 	 * labeled alternative in {@link MyGrammarParser#enteroperations}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitInput(MyGrammarParser.InputContext ctx);
+	T visitInputint(MyGrammarParser.InputintContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code inputreal}
+	 * labeled alternative in {@link MyGrammarParser#enteroperations}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitInputreal(MyGrammarParser.InputrealContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link MyGrammarParser#number}.
 	 * @param ctx the parse tree

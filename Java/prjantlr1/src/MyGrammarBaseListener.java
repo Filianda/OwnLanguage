@@ -183,18 +183,6 @@ public class MyGrammarBaseListener implements MyGrammarListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterAdd(MyGrammarParser.AddContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitAdd(MyGrammarParser.AddContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterDiv(MyGrammarParser.DivContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -202,6 +190,18 @@ public class MyGrammarBaseListener implements MyGrammarListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitDiv(MyGrammarParser.DivContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterAdd(MyGrammarParser.AddContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAdd(MyGrammarParser.AddContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -291,13 +291,25 @@ public class MyGrammarBaseListener implements MyGrammarListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterInput(MyGrammarParser.InputContext ctx) { }
+	@Override public void enterInputint(MyGrammarParser.InputintContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitInput(MyGrammarParser.InputContext ctx) { }
+	@Override public void exitInputint(MyGrammarParser.InputintContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterInputreal(MyGrammarParser.InputrealContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitInputreal(MyGrammarParser.InputrealContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

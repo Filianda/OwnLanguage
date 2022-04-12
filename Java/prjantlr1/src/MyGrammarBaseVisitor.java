@@ -114,14 +114,14 @@ public class MyGrammarBaseVisitor<T> extends AbstractParseTreeVisitor<T> impleme
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitAdd(MyGrammarParser.AddContext ctx) { return visitChildren(ctx); }
+	@Override public T visitDiv(MyGrammarParser.DivContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitDiv(MyGrammarParser.DivContext ctx) { return visitChildren(ctx); }
+	@Override public T visitAdd(MyGrammarParser.AddContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -177,7 +177,14 @@ public class MyGrammarBaseVisitor<T> extends AbstractParseTreeVisitor<T> impleme
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitInput(MyGrammarParser.InputContext ctx) { return visitChildren(ctx); }
+	@Override public T visitInputint(MyGrammarParser.InputintContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitInputreal(MyGrammarParser.InputrealContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *

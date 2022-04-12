@@ -14,6 +14,12 @@ PRINT
 INPUT
 	: 'input'
 	;
+TYPEINT
+	: 'int'
+	;
+TYPEREAL
+	: 'real'
+	;
 IF
 	:'if'
 	;
@@ -46,6 +52,8 @@ DIV    : '/';
 SUB    : '-';
 ADD    : '+';
 
+
+
 GREATER: '>';
 LESS   : '<';
 GREATEREQ : '>=';
@@ -63,7 +71,7 @@ INT
 	: [0-9]+
 	;
 REAL
-	:  ('(' [-+] ')') ?[0-9]*'.'[0-9]+
+	:  [0-9]*'.'[0-9]+
 	;
 WHITESPACE
 	: [ \t]+ -> skip
@@ -129,14 +137,14 @@ block
 	: '{' body* '}'
 	;
 arithmetic
-	: arithmetic ADD arithmetic     #add
-	| arithmetic SUB arithmetic     #sub
-	| arithmetic MUL arithmetic     #mul
-	| arithmetic DIV arithmetic     #div
-	| number                        #intreal
-	| SUB number                        #nothing
-	| '(' arithmetic ')'          #nothing3
-	;
+    : '(' arithmetic ')'          #nothing3
+    | arithmetic MUL arithmetic     #mul
+    | arithmetic DIV arithmetic     #div
+    | arithmetic ADD arithmetic     #add
+    | arithmetic SUB arithmetic     #sub
+    | SUB number                        #nothing
+    | number                        #intreal
+    ;
 concat
 	:concat'+'concat
 	|STRING
@@ -144,8 +152,9 @@ concat
 	;
 
 enteroperations
-	: PRINT '(' value ')'      #print
-	| INPUT ID                 #input
+	: PRINT '(' value ')'              #print
+	| INPUT TYPEINT ID                 #inputint
+	| INPUT TYPEREAL ID                #inputreal
 	;
 number
 	:REAL

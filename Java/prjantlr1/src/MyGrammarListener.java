@@ -147,18 +147,6 @@ public interface MyGrammarListener extends ParseTreeListener {
 	 */
 	void exitBlock(MyGrammarParser.BlockContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code add}
-	 * labeled alternative in {@link MyGrammarParser#arithmetic}.
-	 * @param ctx the parse tree
-	 */
-	void enterAdd(MyGrammarParser.AddContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code add}
-	 * labeled alternative in {@link MyGrammarParser#arithmetic}.
-	 * @param ctx the parse tree
-	 */
-	void exitAdd(MyGrammarParser.AddContext ctx);
-	/**
 	 * Enter a parse tree produced by the {@code div}
 	 * labeled alternative in {@link MyGrammarParser#arithmetic}.
 	 * @param ctx the parse tree
@@ -170,6 +158,18 @@ public interface MyGrammarListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitDiv(MyGrammarParser.DivContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code add}
+	 * labeled alternative in {@link MyGrammarParser#arithmetic}.
+	 * @param ctx the parse tree
+	 */
+	void enterAdd(MyGrammarParser.AddContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code add}
+	 * labeled alternative in {@link MyGrammarParser#arithmetic}.
+	 * @param ctx the parse tree
+	 */
+	void exitAdd(MyGrammarParser.AddContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code sub}
 	 * labeled alternative in {@link MyGrammarParser#arithmetic}.
@@ -253,17 +253,29 @@ public interface MyGrammarListener extends ParseTreeListener {
 	 */
 	void exitPrint(MyGrammarParser.PrintContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code input}
+	 * Enter a parse tree produced by the {@code inputint}
 	 * labeled alternative in {@link MyGrammarParser#enteroperations}.
 	 * @param ctx the parse tree
 	 */
-	void enterInput(MyGrammarParser.InputContext ctx);
+	void enterInputint(MyGrammarParser.InputintContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code input}
+	 * Exit a parse tree produced by the {@code inputint}
 	 * labeled alternative in {@link MyGrammarParser#enteroperations}.
 	 * @param ctx the parse tree
 	 */
-	void exitInput(MyGrammarParser.InputContext ctx);
+	void exitInputint(MyGrammarParser.InputintContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code inputreal}
+	 * labeled alternative in {@link MyGrammarParser#enteroperations}.
+	 * @param ctx the parse tree
+	 */
+	void enterInputreal(MyGrammarParser.InputrealContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code inputreal}
+	 * labeled alternative in {@link MyGrammarParser#enteroperations}.
+	 * @param ctx the parse tree
+	 */
+	void exitInputreal(MyGrammarParser.InputrealContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link MyGrammarParser#number}.
 	 * @param ctx the parse tree

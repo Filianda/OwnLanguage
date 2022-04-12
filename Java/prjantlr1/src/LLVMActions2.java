@@ -142,25 +142,32 @@ public class LLVMActions2 extends MyGrammarBaseListener {
 
     }
     @Override
-    public void exitInput(MyGrammarParser.InputContext ctx) {
+    public void exitInputreal(MyGrammarParser.InputrealContext ctx) {
         String ID = ctx.ID().getText();
-        VarType type = variables.get(ID);
-        if( type != null ) {
-            if (type == VarType.INT) {
-                if( ! variables.containsKey(ID) ) {
-                    variables.put(ID, VarType.INT);
-                    LLVMGenerator2.declare_i32(ID);
-                }
-                LLVMGenerator2.scanf_i32(ID);
-            }
-            if (type == VarType.REAL) {
+//        VarType type = variables.get(ID);
+//        if( type != null ) {
+//            if (type == VarType.REAL) {
                 if(! variables.containsKey(ID) ) {
                     variables.put(ID, VarType.REAL);
                     LLVMGenerator2.declare_double(ID);
                 }
                 LLVMGenerator2.scanf_double(ID);
-            }
-        }
+//            }
+//        }
+    }
+    @Override
+    public void exitInputint(MyGrammarParser.InputintContext ctx) {
+        String ID = ctx.ID().getText();
+//        VarType type = variables.get(ID);
+//        if( type != null ) {
+//            if (type == VarType.INT) {
+                if( ! variables.containsKey(ID) ) {
+                    variables.put(ID, VarType.INT);
+                    LLVMGenerator2.declare_i32(ID);
+                }
+                LLVMGenerator2.scanf_i32(ID);
+//            }
+//        }
     }
 
     void error(int line, String msg) {
