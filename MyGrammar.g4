@@ -1,8 +1,8 @@
 grammar MyGrammar;
-START 
+START
 	: 'start'
 	;
-STOP 
+STOP
 	: 'stop'
 	;
 ARRAYS
@@ -11,7 +11,7 @@ ARRAYS
 PRINT
 	: 'print'
 	;
-INPUT 
+INPUT
 	: 'input'
 	;
 IF
@@ -41,17 +41,29 @@ LOCAL
 CLASS
 	:'class'
 	;
+MUL    : '*';
+DIV    : '/';
+SUB    : '-';
+ADD    : '+';
+
+GREATER: '>';
+LESS   : '<';
+GREATEREQ : '>=';
+LESSEQ : '<=';
+ISEQ   : '?=';
+NOTEQ  : '!=';
+
 ID
 	: [a-zA-Z]+[0-9]?'_'?
 	;
-STRING 
+STRING
 	: '"'[a-zA-Z]+'"'
 	;
-INT 
+INT
 	: [0-9]+
 	;
-REAL 
-	: [-+]?[0-9]*'.'[0-9]+
+REAL
+	:  ('(' [-+] ')') ?[0-9]*'.'[0-9]+
 	;
 WHITESPACE
 	: [ \t]+ -> skip
@@ -59,33 +71,32 @@ WHITESPACE
 NEWLINE
 	: ('\r''\n'?| '\n') -> skip
 	;
-main	
+main
 	: START body* STOP
 	;
-body	
-	: enteroperations
-	| arithmetic
-	| subbody
-	| ifOperation
-	| condition
-	| forLoop
-	| whileLoop
-	| functionDecl
-	| functionCall
-	| accessrules
-	| classDecl
-	| classCall
-	| assigment
-	| value
-	;
+body
+    : enteroperations
+    | subbody
+    | ifOperation
+    | forLoop
+    | whileLoop
+    | functionDecl
+    | functionCall
+    | accessrules
+    | classDecl
+    | classCall
+    | assigment
+    | value
+    ;
 subbody
-	: array  
-	| concat 
-	| condition 
-	;
+    : array
+    | concat
+    | condition
+    | arithmetic
+    ;
 assigment
-	: ID '=' (subbody | value) ';'
-	;
+    : ID '=' (subbody | value) ';'
+    ;
 classDecl
 	: CLASS ID '|' value?|array? '|' ':' block
 	;
@@ -102,7 +113,7 @@ functionCall
 	: CALL ID '(' value?|array? ')'
 	;
 forLoop
-	: FOR INT '->' INT ':' block	
+	: FOR INT '->' INT ':' block
 	;
 whileLoop
 	: WHILE condition ':' block
@@ -110,19 +121,21 @@ whileLoop
 ifOperation
 	: IF  condition ':' block  (ELSE ':' block)? ;
 condition
-	: value('<'|'>')value
-	| value('<='|'>=')value
-	| value('?='|'!=')value
+	: value(LESS|GREATER)value
+	| value(LESSEQ|GREATEREQ)value
+	| value(ISEQ|NOTEQ)value
 	;
 block
 	: '{' body* '}'
 	;
 arithmetic
-	: arithmetic('+'|'-')arithmetic
-	| arithmetic('*'|'/')arithmetic
-	| number
-	| '-'number
-	| '(' arithmetic ')'
+	: arithmetic ADD arithmetic     #add
+	| arithmetic SUB arithmetic     #sub
+	| arithmetic MUL arithmetic     #mul
+	| arithmetic DIV arithmetic     #div
+	| number                        #intreal
+	| SUB number                        #nothing
+	| '(' arithmetic ')'          #nothing3
 	;
 concat
 	:concat'+'concat
@@ -131,7 +144,9 @@ concat
 	;
 
 enteroperations
-	: (PRINT | INPUT) '(' value ')';
+	: PRINT '(' value ')'      #print
+	| INPUT ID                 #input
+	;
 number
 	:REAL
 	|INT
