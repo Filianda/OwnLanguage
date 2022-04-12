@@ -1,15 +1,25 @@
 start
-    a = 3+2*2;
-    b = 4-2;
-    c = 2*3;
-    d = 10/2;
+    a = 4.2+(2.0*2.1)+2.2;
+    b = 5.1-2.4;
+    c = 2.3*3.2;
+    d = 10.2/2.31;
+
+    j = 2+(5*4);
+    s = 5-2;
+    f = 2*3;
+    h = 10/2;
 
     print (a)
     print (b)
     print (c)
     print (d)
 
-    input d
-    print (d)
+    print (j)
+    print (s)
+    print (f)
+    print (h)
+
+
+
 
 stop

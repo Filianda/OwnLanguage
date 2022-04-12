@@ -3,8 +3,8 @@ array { 5 }
 array { 5 ; "a" ; a ; a2 ; 6.8; -5.0}
 print(5)
 print("ala")
-input(2)
-input("ala")
+input d
+input s
 2+2
 2-2
 2*2

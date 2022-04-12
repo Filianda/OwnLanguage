@@ -59,11 +59,11 @@ ID
 STRING
 	: '"'[a-zA-Z]+'"'
 	;
+REAL
+	:  [0-9]*'.'[0-9]+
+	;
 INT
 	: [0-9]+
-	;
-REAL
-	: [-+]?[0-9]*'.'[0-9]+
 	;
 WHITESPACE
 	: [ \t]+ -> skip
@@ -76,10 +76,8 @@ main
 	;
 body
     : enteroperations
-    | arithmetic
     | subbody
     | ifOperation
-    | condition
     | forLoop
     | whileLoop
     | functionDecl
@@ -136,7 +134,7 @@ arithmetic
 	| arithmetic MUL arithmetic     #mul
 	| arithmetic DIV arithmetic     #div
 	| number                        #intreal
-	| SUB number                  #nothing2
+	| SUB number                        #nothing
 	| '(' arithmetic ')'          #nothing3
 	;
 concat
@@ -147,7 +145,7 @@ concat
 
 enteroperations
 	: PRINT '(' value ')'      #print
-	| INPUT '(' value ')'      #input
+	| INPUT ID                 #input
 	;
 number
 	:REAL

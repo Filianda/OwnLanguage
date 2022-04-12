@@ -136,12 +136,12 @@ public interface MyGrammarVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitIntreal(MyGrammarParser.IntrealContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code nothing2}
+	 * Visit a parse tree produced by the {@code nothing}
 	 * labeled alternative in {@link MyGrammarParser#arithmetic}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitNothing2(MyGrammarParser.Nothing2Context ctx);
+	T visitNothing(MyGrammarParser.NothingContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link MyGrammarParser#concat}.
 	 * @param ctx the parse tree

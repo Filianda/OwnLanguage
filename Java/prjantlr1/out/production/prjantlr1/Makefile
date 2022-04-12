@@ -1,4 +1,4 @@
-all: generate compile test
+all: generate compile test clear
 
 ANTLR=$(shell pwd)/antlr-4.9.3-complete.jar
 
@@ -12,7 +12,7 @@ test:
 	java -cp $(ANTLR):output:. Main > zobaczymy.ll
 	lli zobaczymy.ll
 
-clean:
+clear:
 	rm zobaczymy.ll
 	rm *.class
 	rm -rf output

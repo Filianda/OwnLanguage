@@ -255,13 +255,13 @@ public class MyGrammarBaseListener implements MyGrammarListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterNothing2(MyGrammarParser.Nothing2Context ctx) { }
+	@Override public void enterNothing(MyGrammarParser.NothingContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitNothing2(MyGrammarParser.Nothing2Context ctx) { }
+	@Override public void exitNothing(MyGrammarParser.NothingContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

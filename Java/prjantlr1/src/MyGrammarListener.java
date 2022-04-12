@@ -219,17 +219,17 @@ public interface MyGrammarListener extends ParseTreeListener {
 	 */
 	void exitIntreal(MyGrammarParser.IntrealContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code nothing2}
+	 * Enter a parse tree produced by the {@code nothing}
 	 * labeled alternative in {@link MyGrammarParser#arithmetic}.
 	 * @param ctx the parse tree
 	 */
-	void enterNothing2(MyGrammarParser.Nothing2Context ctx);
+	void enterNothing(MyGrammarParser.NothingContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code nothing2}
+	 * Exit a parse tree produced by the {@code nothing}
 	 * labeled alternative in {@link MyGrammarParser#arithmetic}.
 	 * @param ctx the parse tree
 	 */
-	void exitNothing2(MyGrammarParser.Nothing2Context ctx);
+	void exitNothing(MyGrammarParser.NothingContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link MyGrammarParser#concat}.
 	 * @param ctx the parse tree
