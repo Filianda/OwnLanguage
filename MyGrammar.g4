@@ -1,79 +1,83 @@
 grammar MyGrammar;
 START
-	: 'start'
-	;
+    : 'start'
+    ;
 STOP
-	: 'stop'
-	;
+    : 'stop'
+    ;
 ARRAYS
-	: 'array'
-	;
+    : 'array'
+    ;
 PRINT
-	: 'print'
-	;
+    : 'print'
+    ;
 INPUT
-	: 'input'
-	;
+    : 'input'
+    ;
+TYPEINT
+    : 'int'
+    ;
+TYPEREAL
+    : 'real'
+    ;
 IF
-	:'if'
-	;
+    :'if'
+    ;
 ELSE
-	:'else'
-	;
+    :'else'
+    ;
 FOR
-	:'for'
-	;
+    :'for'
+    ;
 WHILE
-	:'while'
-	;
+    :'while'
+    ;
 FUNC
-	:'func'
-	;
+    :'func'
+    ;
 CALL
-	:'call'
-	;
+    :'call'
+    ;
 GLOBAL
-	:'global'
-	;
+    :'global'
+    ;
 LOCAL
-	:'local'
-	;
+    :'local'
+    ;
 CLASS
-	:'class'
-	;
+    :'class'
+    ;
 MUL    : '*';
 DIV    : '/';
 SUB    : '-';
 ADD    : '+';
-
 GREATER: '>';
 LESS   : '<';
 GREATEREQ : '>=';
 LESSEQ : '<=';
 ISEQ   : '?=';
 NOTEQ  : '!=';
-
 ID
-	: [a-zA-Z]+[0-9]?'_'?
-	;
+    : [a-zA-Z]+[0-9]?'_'?
+    ;
 STRING
-	: '"'[a-zA-Z]+'"'
-	;
+    : '"'[a-zA-Z]+'"'
+    ;
 INT
-	: [0-9]+
-	;
+    : [0-9]+
+    ;
 REAL
-	:  ('(' [-+] ')') ?[0-9]*'.'[0-9]+
-	;
+    :  [0-9]*'.'[0-9]+
+    ;
 WHITESPACE
-	: [ \t]+ -> skip
-	;
+    : [ \t]+ -> skip
+    ;
 NEWLINE
-	: ('\r''\n'?| '\n') -> skip
-	;
+    : ('\r''\n'?| '\n') -> skip
+    ;
 main
-	: START body* STOP
-	;
+    : START body* STOP
+    ;
 body
     : enteroperations
     | subbody
@@ -98,65 +102,64 @@ assigment
     : ID '=' (subbody | value) ';'
     ;
 classDecl
-	: CLASS ID '|' value?|array? '|' ':' block
-	;
+    : CLASS ID '|' value?|array? '|' ':' block
+    ;
 classCall
-	: CALL ID '|' value?|array? '|'
-	;
+    : CALL ID '|' value?|array? '|'
+    ;
 accessrules
-	: GLOBAL|LOCAL value
-	;
+    : GLOBAL|LOCAL value
+    ;
 functionDecl
-	: FUNC ID '(' value?|array? '):' block
-	;
+    : FUNC ID '(' value?|array? '):' block
+    ;
 functionCall
-	: CALL ID '(' value?|array? ')'
-	;
+    : CALL ID '(' value?|array? ')'
+    ;
 forLoop
-	: FOR INT '->' INT ':' block
-	;
+    : FOR INT '->' INT ':' block
+    ;
 whileLoop
-	: WHILE condition ':' block
-	;
+    : WHILE condition ':' block
+    ;
 ifOperation
-	: IF  condition ':' block  (ELSE ':' block)? ;
+    : IF  condition ':' block  (ELSE ':' block)? ;
 condition
-	: value(LESS|GREATER)value
-	| value(LESSEQ|GREATEREQ)value
-	| value(ISEQ|NOTEQ)value
-	;
+    : value(LESS|GREATER)value
+    | value(LESSEQ|GREATEREQ)value
+    | value(ISEQ|NOTEQ)value
+    ;
 block
-	: '{' body* '}'
-	;
+    : '{' body* '}'
+    ;
 arithmetic
-	: arithmetic ADD arithmetic     #add
-	| arithmetic SUB arithmetic     #sub
-	| arithmetic MUL arithmetic     #mul
-	| arithmetic DIV arithmetic     #div
-	| number                        #intreal
-	| SUB number                        #nothing
-	| '(' arithmetic ')'          #nothing3
-	;
+    : '(' arithmetic ')'          #nothing3
+    | arithmetic MUL arithmetic     #mul
+    | arithmetic DIV arithmetic     #div
+    | arithmetic ADD arithmetic     #add
+    | arithmetic SUB arithmetic     #sub
+    | SUB number                        #nothing
+    | number                        #intreal
+    ;
 concat
-	:concat'+'concat
-	|STRING
-	|ID
-	;
-
+    :concat'+'concat
+    |STRING
+    |ID
+    ;
 enteroperations
-	: PRINT '(' value ')'      #print
-	| INPUT ID                 #input
-	;
+    : PRINT '(' value ')'              #print
+    | INPUT TYPEINT ID                 #inputint
+    | INPUT TYPEREAL ID                #inputreal
+    ;
 number
-	:REAL
-	|INT
-	;
-
+    :REAL
+    |INT
+    ;
 array
-	: ARRAYS'{' value ( ';' value)*'}'
-	;
+    : ARRAYS'{' value ( ';' value)*'}'
+    ;
 value
-	:number
-	|STRING
-	|ID
-	;
+    :number
+    |STRING
+    |ID
+    ;
