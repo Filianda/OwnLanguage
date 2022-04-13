@@ -13,7 +13,7 @@ test:
 	lli zobaczymy.ll
 
 clear:
-	rm zobaczymy.ll
-	rm *.class
+	rm -f zobaczymy.ll
+	rm -f *.class
 	rm -rf output
 
