@@ -1,4 +1,4 @@
-all:  clear generate compile test clear
+all: clear generate compile test clear
 
 ANTLR=$(shell pwd)/antlr-4.9.3-complete.jar
 

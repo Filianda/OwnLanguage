@@ -16,7 +16,7 @@ class Value {
 
 public class LLVMActions2 extends MyGrammarBaseListener {
     HashMap<String, VarType> variables = new HashMap<>();
-    HashMap<String, String> insidevar= new HashMap<>();
+    HashMap<String, Integer> insidevar = new HashMap<>();
     Stack<Value> stack = new Stack<>();
 
 
@@ -31,34 +31,49 @@ public class LLVMActions2 extends MyGrammarBaseListener {
         String ID = ctx.ID().getText();
         Value v = stack.pop();
         variables.put(ID, v.type);
-        insidevar.put(ID, v.name);
-        if (v.type == VarType.INT) {
-            LLVMGenerator2.declare_i32(ID);
-            LLVMGenerator2.assign_i32(ID, v.name);
-        }
-        if (v.type == VarType.REAL) {
-            LLVMGenerator2.declare_double(ID);
-            LLVMGenerator2.assign_double(ID, v.name);
-        }
-        if (v.type == VarType.STRING) {
-            LLVMGenerator2.declare_assign_string(ID, v.name);
+        insidevar.put(ID, v.name.length()-1); // -1 bo mamy cudzyslowia
+        if(v.type == VarType.INT || v.type == VarType.REAL || v.type == VarType.STRING) {
+            switch (v.type) {
+                case INT:
+                    LLVMGenerator2.declare_i32(ID);
+                    LLVMGenerator2.assign_i32(ID, v.name);
+                    break;
+
+                case REAL:
+                    LLVMGenerator2.declare_double(ID);
+                    LLVMGenerator2.assign_double(ID, v.name);
+                    break;
+
+                case STRING:
+                    LLVMGenerator2.declare_assign_string(ID, v.name);
+                    break;
+            }
+        }else{
+            error(ctx.getStart().getLine(), "assigment type mismatch");
         }
     }
 
     @Override
     public void exitIntreal(MyGrammarParser.IntrealContext ctx) {
-        if (ctx.number().INT() != null) {
-            stack.push(new Value(ctx.number().INT().getText(), VarType.INT));
-        }
-
-        if (ctx.number().REAL() != null) {
-            stack.push(new Value(ctx.number().REAL().getText(), VarType.REAL));
+        if (ctx.number() != null) {
+            if (ctx.number().INT() != null) {
+                stack.push(new Value(ctx.number().INT().getText(), VarType.INT));
+            }
+            if (ctx.number().REAL() != null) {
+                stack.push(new Value(ctx.number().REAL().getText(), VarType.REAL));
+            }
+        } else {
+            error(ctx.getStart().getLine(), "variable type mismatch");
         }
     }
 
     @Override
     public void exitString(MyGrammarParser.StringContext ctx) {
+        if(ctx.STRING() != null){
             stack.push(new Value(ctx.STRING().getText(), VarType.STRING));
+        }else{
+            error(ctx.getStart().getLine(), "string type syntax mismatch");
+        }
     }
 
     @Override
@@ -66,13 +81,15 @@ public class LLVMActions2 extends MyGrammarBaseListener {
         Value v1 = stack.pop();
         Value v2 = stack.pop();
         if (v1.type == v2.type) {
-            if (v1.type == VarType.INT) {
-                LLVMGenerator2.add_i32(v1.name, v2.name);
-                stack.push(new Value("%" + (LLVMGenerator2.reg - 1), VarType.INT));
-            }
-            if (v1.type == VarType.REAL) {
-                LLVMGenerator2.add_double(v1.name, v2.name);
-                stack.push(new Value("%" + (LLVMGenerator2.reg - 1), VarType.REAL));
+            switch (v1.type) {
+                case INT:
+                    LLVMGenerator2.add_i32(v1.name, v2.name);
+                    stack.push(new Value("%" + (LLVMGenerator2.reg - 1), VarType.INT));
+                    break;
+                case REAL:
+                    LLVMGenerator2.add_double(v1.name, v2.name);
+                    stack.push(new Value("%" + (LLVMGenerator2.reg - 1), VarType.REAL));
+                    break;
             }
         } else {
             error(ctx.getStart().getLine(), "add type mismatch");
@@ -135,52 +152,59 @@ public class LLVMActions2 extends MyGrammarBaseListener {
 
     @Override
     public void exitPrint(MyGrammarParser.PrintContext ctx) {
-        if(ctx.value().ID() != null) {
-           String ID = ctx.value().ID().getText();
-           VarType type = variables.get(ID);
-           if (type != null) {
-               if (type == VarType.INT) {
-                   LLVMGenerator2.printf_i32(ID);
-               }
-               if (type == VarType.REAL) {
-                   LLVMGenerator2.printf_double(ID);
-               }
-               if (type == VarType.STRING) {
-                   LLVMGenerator2.printf_string(ID, insidevar.get(ID).length());
-               }
-           } else {
-               error(ctx.getStart().getLine(), "unknown variable " + ID);
-           }
-       }
+        if (ctx.value().ID() != null) {
+            String ID = ctx.value().ID().getText();
+            VarType type = variables.get(ID);
+            if (type != null) {
+                if (type == VarType.INT) {
+                    LLVMGenerator2.printf_i32(ID);
+                }
+                if (type == VarType.REAL) {
+                    LLVMGenerator2.printf_double(ID);
+                }
+                if (type == VarType.STRING) {
+                    LLVMGenerator2.printf_string(ID, insidevar.get(ID));
+                }
+            } else {
+                error(ctx.getStart().getLine(), "unknown variable " + ID);
+            }
+        }
 
     }
+
     @Override
     public void exitInputreal(MyGrammarParser.InputrealContext ctx) {
         String ID = ctx.ID().getText();
-//        VarType type = variables.get(ID);
-//        if( type != null ) {
-//            if (type == VarType.REAL) {
-                if(! variables.containsKey(ID) ) {
-                    variables.put(ID, VarType.REAL);
-                    LLVMGenerator2.declare_double(ID);
-                }
-                LLVMGenerator2.scanf_double(ID);
-//            }
-//        }
+
+        if (!variables.containsKey(ID)) {
+            variables.put(ID, VarType.REAL);
+            LLVMGenerator2.declare_double(ID);
+        }
+        LLVMGenerator2.scanf_double(ID);
     }
+
     @Override
     public void exitInputint(MyGrammarParser.InputintContext ctx) {
         String ID = ctx.ID().getText();
-//        VarType type = variables.get(ID);
-//        if( type != null ) {
-//            if (type == VarType.INT) {
-                if( ! variables.containsKey(ID) ) {
-                    variables.put(ID, VarType.INT);
-                    LLVMGenerator2.declare_i32(ID);
-                }
-                LLVMGenerator2.scanf_i32(ID);
-//            }
-//        }
+        if (!variables.containsKey(ID)) {
+            variables.put(ID, VarType.INT);
+            LLVMGenerator2.declare_i32(ID);
+        }
+        LLVMGenerator2.scanf_i32(ID);
+    }
+
+    @Override
+    public void exitInputstring(MyGrammarParser.InputstringContext ctx) {
+        String ID = ctx.ID().getText();
+        int size = Integer.parseInt(ctx.INT().getText());
+        if (!variables.containsKey(ID)) {
+            variables.put(ID, VarType.STRING);
+            insidevar.put(ID, size);
+            LLVMGenerator2.declare_assign_string(ID, size);
+        }
+        variables.put(ID, VarType.STRING);
+        insidevar.put(ID, size+1); // +1 bo nie mamy cudzyslowia
+        LLVMGenerator2.scanf_string(ID, size);
     }
 
     void error(int line, String msg) {

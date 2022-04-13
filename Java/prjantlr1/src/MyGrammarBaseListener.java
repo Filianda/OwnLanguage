@@ -1,4 +1,4 @@
-// Generated from D:/Lukasz/JAVA/prjantlr1/src\MyGrammar.g4 by ANTLR 4.9.2
+// Generated from D:/Lukasz/.Mgr_I_Sem/Jezyki_formalne_i_kompilatory/Proj2/Proj2git/OwnLanguage/Java/prjantlr1/src\MyGrammar.g4 by ANTLR 4.9.2
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
@@ -298,6 +298,18 @@ public class MyGrammarBaseListener implements MyGrammarListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitInputreal(MyGrammarParser.InputrealContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterInputstring(MyGrammarParser.InputstringContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitInputstring(MyGrammarParser.InputstringContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

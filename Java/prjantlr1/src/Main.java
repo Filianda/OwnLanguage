@@ -13,7 +13,7 @@ public class Main {
 
 //        File myFile = new File("src/testypodstawowe.txt");
 //        myFile.getParentFile().mkdir();
-        File myFile = new File("/mnt/d/Lukasz/Java/prjantlr1/src/testypodstawowe.txt");
+        File myFile = new File("/mnt/d/Lukasz/.Mgr_I_Sem/Jezyki_formalne_i_kompilatory/Proj2/Proj2git/OwnLanguage/Java/prjantlr1/src/testypodstawowe.txt");
         try {
             ANTLRInputStream input = new ANTLRInputStream(
                     new FileInputStream(myFile));

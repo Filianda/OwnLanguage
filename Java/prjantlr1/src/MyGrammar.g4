@@ -20,6 +20,9 @@ TYPEINT
 TYPEREAL
 	: 'real'
 	;
+TYPESTRING
+    : 'string'
+    ;
 IF
 	:'if'
 	;
@@ -65,7 +68,7 @@ ID
 	: [a-zA-Z]+[0-9]?'_'?
 	;
 STRING
-	: '"'[a-zA-Z]+'"'
+	: '"'[0-9]*?[a-zA-Z]+[0-9]*'"'
 	;
 INT
 	: [0-9]+
@@ -142,7 +145,6 @@ arithmetic
     | arithmetic SUB arithmetic     #sub
     | SUB number                        #nothing
     | number                     #intreal
-
     ;
 
 
@@ -150,6 +152,7 @@ enteroperations
 	: PRINT '(' value ')'              #print
 	| INPUT TYPEINT ID                 #inputint
 	| INPUT TYPEREAL ID                #inputreal
+	| INPUT TYPESTRING '[' INT ']' ID  #inputstring
 	;
 number
 	:REAL
@@ -161,10 +164,8 @@ array
 	;
 value
 	:number
-	|STRING
 	|ID
 	;
-
 
 string:
     |STRING
