@@ -1,7 +1,34 @@
 start
-    s = "ww";
-print (s)
+    xy = "ww";
+print (xy)
 
-    input string[2] a
-    print (a)
+    input string[2] n
+    print (n)
+
+        a = 4.0*3.0-2.0*4.0;
+        b = 5.1-2.4;
+        c = 2.3*3.2;
+        d = 10.2/2.31;
+
+        j = 2+5*(4+3);
+        s = 5*2-2;
+        f = 2*3;
+        h = 10/2;
+
+        print (a)
+        print (b)
+        print (c)
+        print (d)
+
+        print (j)
+        print (s)
+        print (f)
+        print (h)
+
+        input real r
+        print (r)
+
+        input int i
+        print (i)
+
 stop
