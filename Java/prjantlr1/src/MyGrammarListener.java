@@ -231,16 +231,6 @@ public interface MyGrammarListener extends ParseTreeListener {
 	 */
 	void exitNothing(MyGrammarParser.NothingContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link MyGrammarParser#concat}.
-	 * @param ctx the parse tree
-	 */
-	void enterConcat(MyGrammarParser.ConcatContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link MyGrammarParser#concat}.
-	 * @param ctx the parse tree
-	 */
-	void exitConcat(MyGrammarParser.ConcatContext ctx);
-	/**
 	 * Enter a parse tree produced by the {@code print}
 	 * labeled alternative in {@link MyGrammarParser#enteroperations}.
 	 * @param ctx the parse tree
@@ -306,4 +296,14 @@ public interface MyGrammarListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitValue(MyGrammarParser.ValueContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link MyGrammarParser#string}.
+	 * @param ctx the parse tree
+	 */
+	void enterString(MyGrammarParser.StringContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MyGrammarParser#string}.
+	 * @param ctx the parse tree
+	 */
+	void exitString(MyGrammarParser.StringContext ctx);
 }

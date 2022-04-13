@@ -267,18 +267,6 @@ public class MyGrammarBaseListener implements MyGrammarListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterConcat(MyGrammarParser.ConcatContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitConcat(MyGrammarParser.ConcatContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterPrint(MyGrammarParser.PrintContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -346,6 +334,18 @@ public class MyGrammarBaseListener implements MyGrammarListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitValue(MyGrammarParser.ValueContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterString(MyGrammarParser.StringContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitString(MyGrammarParser.StringContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

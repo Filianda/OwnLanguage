@@ -2,7 +2,7 @@ import java.util.HashMap;
 import java.util.Stack;
 
 
-enum VarType {INT, REAL, UNKNOWN}
+enum VarType {INT, REAL, STRING, UNKNOWN}
 
 class Value {
     public String name;
@@ -16,6 +16,7 @@ class Value {
 
 public class LLVMActions2 extends MyGrammarBaseListener {
     HashMap<String, VarType> variables = new HashMap<>();
+    HashMap<String, String> insidevar= new HashMap<>();
     Stack<Value> stack = new Stack<>();
 
 
@@ -30,6 +31,7 @@ public class LLVMActions2 extends MyGrammarBaseListener {
         String ID = ctx.ID().getText();
         Value v = stack.pop();
         variables.put(ID, v.type);
+        insidevar.put(ID, v.name);
         if (v.type == VarType.INT) {
             LLVMGenerator2.declare_i32(ID);
             LLVMGenerator2.assign_i32(ID, v.name);
@@ -37,6 +39,9 @@ public class LLVMActions2 extends MyGrammarBaseListener {
         if (v.type == VarType.REAL) {
             LLVMGenerator2.declare_double(ID);
             LLVMGenerator2.assign_double(ID, v.name);
+        }
+        if (v.type == VarType.STRING) {
+            LLVMGenerator2.declare_assign_string(ID, v.name);
         }
     }
 
@@ -49,6 +54,11 @@ public class LLVMActions2 extends MyGrammarBaseListener {
         if (ctx.number().REAL() != null) {
             stack.push(new Value(ctx.number().REAL().getText(), VarType.REAL));
         }
+    }
+
+    @Override
+    public void exitString(MyGrammarParser.StringContext ctx) {
+            stack.push(new Value(ctx.STRING().getText(), VarType.STRING));
     }
 
     @Override
@@ -68,6 +78,7 @@ public class LLVMActions2 extends MyGrammarBaseListener {
             error(ctx.getStart().getLine(), "add type mismatch");
         }
     }
+
     @Override
     public void exitSub(MyGrammarParser.SubContext ctx) {
         Value v1 = stack.pop();
@@ -124,7 +135,7 @@ public class LLVMActions2 extends MyGrammarBaseListener {
 
     @Override
     public void exitPrint(MyGrammarParser.PrintContext ctx) {
-       if(ctx.value().ID() != null) {
+        if(ctx.value().ID() != null) {
            String ID = ctx.value().ID().getText();
            VarType type = variables.get(ID);
            if (type != null) {
@@ -134,11 +145,13 @@ public class LLVMActions2 extends MyGrammarBaseListener {
                if (type == VarType.REAL) {
                    LLVMGenerator2.printf_double(ID);
                }
+               if (type == VarType.STRING) {
+                   LLVMGenerator2.printf_string(ID, insidevar.get(ID).length());
+               }
            } else {
                error(ctx.getStart().getLine(), "unknown variable " + ID);
            }
        }
-
 
     }
     @Override

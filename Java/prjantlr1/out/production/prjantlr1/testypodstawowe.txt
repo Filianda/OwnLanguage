@@ -1,24 +1,8 @@
 start
-    a = 4.5+2.1;
-    b = 5.1-2.4;
-    c = 2.3*3.2;
-    d = 10.2/2.31;
+l = "dupa";
+print (l)
 
-    j = 2+5;
-    s = 5-2;
-    f = 2*3;
-    h = 10/2;
-
-    print (a)
-    print (b)
-    print (c)
-    print (d)
-
-    print (j)
-    print (s)
-    print (f)
-    print (h)
-
+s = 3;
 
 
 stop

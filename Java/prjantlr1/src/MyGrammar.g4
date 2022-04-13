@@ -94,16 +94,14 @@ body
     | classDecl
     | classCall
     | assigment
-    | value
     ;
 subbody
     : array
-    | concat
     | condition
     | arithmetic
     ;
 assigment
-    : ID '=' (subbody | value) ';'
+    : ID '=' (value | string | arithmetic) ';'
     ;
 classDecl
 	: CLASS ID '|' value?|array? '|' ':' block
@@ -143,13 +141,10 @@ arithmetic
     | arithmetic ADD arithmetic     #add
     | arithmetic SUB arithmetic     #sub
     | SUB number                        #nothing
-    | number                        #intreal
+    | number                     #intreal
+
     ;
-concat
-	:concat'+'concat
-	|STRING
-	|ID
-	;
+
 
 enteroperations
 	: PRINT '(' value ')'              #print
@@ -169,3 +164,8 @@ value
 	|STRING
 	|ID
 	;
+
+
+string:
+    |STRING
+    ;

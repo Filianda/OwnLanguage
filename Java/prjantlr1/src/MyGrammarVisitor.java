@@ -143,12 +143,6 @@ public interface MyGrammarVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitNothing(MyGrammarParser.NothingContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link MyGrammarParser#concat}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitConcat(MyGrammarParser.ConcatContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code print}
 	 * labeled alternative in {@link MyGrammarParser#enteroperations}.
 	 * @param ctx the parse tree
@@ -187,4 +181,10 @@ public interface MyGrammarVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitValue(MyGrammarParser.ValueContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link MyGrammarParser#string}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitString(MyGrammarParser.StringContext ctx);
 }

@@ -1,3 +1,5 @@
+import java.util.StringTokenizer;
+
 class LLVMGenerator2 {
     static String header_text = "";
     static String main_text = "";
@@ -11,7 +13,7 @@ class LLVMGenerator2 {
     }
 
     static void scanf_double(String id){
-        main_text += "%"+reg+" = call i32 (i8*, ...) @__isoc99_scanf(i8* getelementptr inbounds ([3 x i8], [3 x i8]* @strsd, i32 0, i32 0), double* %"+id+")\n";
+        main_text += "%"+reg+" = call i32 (i8*, ...) @__isoc99_scanf(i8* getelementptr inbounds ([4 x i8], [4 x i8]* @strsd, i32 0, i32 0), double* %"+id+")\n";
         reg++;
     }
 
@@ -31,6 +33,39 @@ class LLVMGenerator2 {
     static void assign_double(String id, String value){
         main_text += "store double "+value+", double* %"+id+"\n";
     }
+
+
+//    static void declare_assign_string(String id, String string) {
+//        int len = string.length() + 1;
+//        String str_type = "[" + len + " x i8]";         // c\"%d\\0A\\00\"\n";
+//        header_text += "@" + id + " = constant" + str_type + " c\"%s\\0A\\00\"\n";
+//        main_text += "%"+id+" = alloca "+str_type+"\n";
+//        main_text += "store "+str_type+" "+string+", "+str_type+"* %"+id+"\n";
+//    }
+    static void declare_assign_string(String id, String string) {
+        int len = string.length() + 1;
+        String str_type = "[" + len + " x i8]";
+        StringTokenizer st = new StringTokenizer(string, "\"");
+        String text = st.nextToken();
+
+//        header_text += "@" + id + " = private unnamed_addr constant " + str_type + " c\""+ text+"\\00\"\n";
+//        main_text += "%"+id+" = alloca "+str_type+"\n";
+//        main_text += "store "+str_type+" "+text+", "+str_type+"* %"+id+"\n";
+    }
+
+    static void printf_string(String id, int len){
+        len++;
+        String str_type = "[" + len + " x i8]";
+        main_text += "%"+reg+" = getelementptr inbounds "+str_type+", "+str_type+"* @"+id+", i32 0, i32 0\n";
+        reg++;
+//        header_text += "@str" + reg + " = constant" + str_type + " c\"" + string + "\\0A\\00\"\n";
+        main_text += "%"+reg+" = call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([4 x i8], [4 x i8]* @strps, i32 0, i32 0), i8* %" +(reg-1)+")\n";
+        reg++;
+    }
+
+
+
+
 
 
     static void printf_i32(String id){
@@ -94,8 +129,9 @@ class LLVMGenerator2 {
         text += "declare i32 @__isoc99_scanf(i8*, ...)\n";
         text += "@strpi = constant [4 x i8] c\"%d\\0A\\00\"\n";
         text += "@strpd = constant [4 x i8] c\"%f\\0A\\00\"\n";
+        text += "@strps = constant [4 x i8] c\"%s\\0A\\00\"\n";
         text += "@strsi = constant [3 x i8] c\"%d\\00\"\n";
-        text += "@strsd = constant [3 x i8] c\"%f\\00\"\n";
+        text += "@strsd = constant [4 x i8] c\"%lf\\00\"\n";
         text += header_text;
         text += "define i32 @main() nounwind{\n";
         text += main_text;
