@@ -96,40 +96,59 @@ class LLVMGenerator2 {
         String str_type = "[" + len + " x i8]";
         header_text += "@" + id + " = constant " + str_type + " c\""+ text+"\\00\"\n";
     }
-    static void declare_assign_string(String id, int size) {
-        size++;
-        String str_type = "[" + size + " x i8]";
+    static void declare_assign_string(String id) {
+        String str_type = "[3 x i8]";
         StringBuilder helper = new StringBuilder();
-        for (int i = 0; i < size-1; i++) {
+        for (int i = 0; i < 2; i++) {
             helper.append(i);
         }
                 header_text += "@" + id + " = global " + str_type + " c\""+helper+"\\0A\"\n";
     }
 
-    static void scanf_string(String id, int len) {
-        len++;
-        String str_type = "[" + len + " x i8]";
+    static void scanf_string(String id) {
+        String str_type = "[3 x i8]";
         main_text += "%"+reg+" = getelementptr inbounds "+str_type+", "+str_type+"* @"+id+", i32 0, i32 0\n";
         reg++;
         main_text += "%"+reg+" = call i32 (i8*, ...) @__isoc99_scanf(i8* getelementptr inbounds ("+str_type+", "+str_type+"* @strss, i32 0, i32 0), i8* %" +(reg-1)+")\n";
         reg++;
-        StringBuilder helper = new StringBuilder();
-        for (int i = 0; i < len-3; i++) {
-            helper.append(i);
-        }
-        header_text += "@strss = constant "+str_type+" c\"%s"+helper+"\\00\"\n";
+
+        header_text += "@strss = constant "+str_type+" c\"%s\\00\"\n";
     }
 
     static void printf_string(String id, int len){
-//        len--; //bo len jest razem z cudzyslowiem i nie bierzemy go pod uwage
-
         String str_type = "[" + len + " x i8]";
         main_text += "%"+reg+" = getelementptr inbounds "+str_type+", "+str_type+"* @"+id+", i32 0, i32 0\n";
         reg++;
-        main_text += "%"+reg+" = call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([3 x i8], [3 x i8]* @strps, i32 0, i32 0), i8* %" +(reg-1)+")\n";
+        main_text += "%"+reg+" = call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([4 x i8], [4 x i8]* @strps, i32 0, i32 0), i8* %" +(reg-1)+")\n";
         reg++;
 //        main_text += "call i32 @puts(i8* %  )\n";
 //        reg++;
+    }
+    static void declare_array(String id, int size, String type) {
+            header_text+= "@" + id + " = common dso_local global ["+size+" x "+type+"] zeroinitializer, align 16\n";
+            main_text+= "%" + id + " = alloca["+size+"x i32], align 16\n";
+
+    }
+    static void declare_i32_array(String id, int size) {
+        declare_array(id,size, "i32");
+    }
+
+    static void declare_double_array(String id, int size) {
+        declare_array(id, size, "double");
+    }
+
+    static void assign_array(String id, int size, int index, String element, String type) {
+        main_text+= "%" + reg + " = getelementptr inbounds ["+size+" x "+type+"],["+size+" x "+type+"]* @"  + id + ", i64 0, i64 "+index+"\n";
+        reg++;
+        main_text+= "store "+type+" "+element+", "+type+"* %" +  (reg - 1) + "\n";
+    }
+
+    static void assign_i32_array(String id, int size, int index, String element) {
+        assign_array(id, size, index, element, "i32");
+    }
+
+    static void assign_double_array(String id, int size, int index, String element) {
+        assign_array(id, size, index, element, "double");
     }
 
     static String generate(){
@@ -138,7 +157,7 @@ class LLVMGenerator2 {
         text += "declare i32 @__isoc99_scanf(i8*, ...)\n";
         text += "@strpi = constant [4 x i8] c\"%d\\0A\\00\"\n";
         text += "@strpd = constant [4 x i8] c\"%f\\0A\\00\"\n";
-        text += "@strps = constant [3 x i8] c\"%s\\00\"\n";
+        text += "@strps = constant [4 x i8] c\"%s\\0A\\00\"\n";
         text += "@strsi = constant [3 x i8] c\"%d\\00\"\n";
         text += "@strsd = constant [4 x i8] c\"%lf\\00\"\n";
 //        text += "@strss = constant [5 x i8] c\"%s  \\00\"\n";

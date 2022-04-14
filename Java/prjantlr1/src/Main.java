@@ -20,12 +20,9 @@ public class Main {
 
             MyGrammarLexer lexer = new MyGrammarLexer(input);
             MyGrammarParser parser = new MyGrammarParser(new CommonTokenStream(lexer));
-//            parser.addParseListener(new MyListener());
 
-            // Start parsing
             ParseTree tree = parser.main();
 
-//Przyklad uruchomienia ze stony https://www.baeldung.com/java-antlr
             ParseTreeWalker walker = new ParseTreeWalker();
             walker.walk(new LLVMActions2(), tree);
 

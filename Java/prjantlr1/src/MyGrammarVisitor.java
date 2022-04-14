@@ -34,6 +34,18 @@ public interface MyGrammarVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitAssigment(MyGrammarParser.AssigmentContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link MyGrammarParser#arrayindex}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitArrayindex(MyGrammarParser.ArrayindexContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link MyGrammarParser#declarationArray}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDeclarationArray(MyGrammarParser.DeclarationArrayContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link MyGrammarParser#classDecl}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -129,19 +141,19 @@ public interface MyGrammarVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitMul(MyGrammarParser.MulContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code intreal}
+	 * Visit a parse tree produced by the {@code nothing1}
 	 * labeled alternative in {@link MyGrammarParser#arithmetic}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitIntreal(MyGrammarParser.IntrealContext ctx);
+	T visitNothing1(MyGrammarParser.Nothing1Context ctx);
 	/**
-	 * Visit a parse tree produced by the {@code nothing}
+	 * Visit a parse tree produced by the {@code nothing2}
 	 * labeled alternative in {@link MyGrammarParser#arithmetic}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitNothing(MyGrammarParser.NothingContext ctx);
+	T visitNothing2(MyGrammarParser.Nothing2Context ctx);
 	/**
 	 * Visit a parse tree produced by the {@code print}
 	 * labeled alternative in {@link MyGrammarParser#enteroperations}.

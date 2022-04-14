@@ -1,34 +1,50 @@
 start
-    xy = "ww";
-print (xy)
 
-    input string[2] n
-    print (n)
+    a = 4.0*3.0-2.0*4.0;
+    print (a)
 
-        a = 4.0*3.0-2.0*4.0;
-        b = 5.1-2.4;
-        c = 2.3*3.2;
-        d = 10.2/2.31;
+    b = 5.1-2.4;
+    print (b)
 
-        j = 2+5*(4+3);
-        s = 5*2-2;
-        f = 2*3;
-        h = 10/2;
+    c = 2.3*3.2;
+    print (c)
 
-        print (a)
-        print (b)
-        print (c)
-        print (d)
+    d = 10.2/2.31;
+    print (d)
 
-        print (j)
-        print (s)
-        print (f)
-        print (h)
+    e = 2+5*(4+3);
+    print (e)
 
-        input real r
-        print (r)
+    f = 2-2*5;
+    print (f)
 
-        input int i
-        print (i)
+    g = 2*3;
+    print (g)
+
+    h = 10/2;
+    print (h)
+
+    input int i
+    print (i)
+
+    input real j
+    print (j)
+
+
+
+    k = "wpiszJakasLitere";
+    print (k)
+
+    input string l
+    print (l)
+
+    m = int [2];
+    m[1] = 1;
+    m[2] = 3;
+
+    n = real [2];
+    n[1] = 1.3;
+    n[2] = 3.4;
+
 
 stop

@@ -97,6 +97,7 @@ body
     | classDecl
     | classCall
     | assigment
+    | declarationArray
     ;
 subbody
     : array
@@ -105,6 +106,13 @@ subbody
     ;
 assigment
     : ID '=' (value | string | arithmetic) ';'
+    | ID arrayindex '=' number ';'
+    ;
+arrayindex
+     : '[' INT ']'
+     ;
+declarationArray
+    : ID '='  array ';'
     ;
 classDecl
 	: CLASS ID '|' value?|array? '|' ':' block
@@ -138,13 +146,13 @@ block
 	: '{' body* '}'
 	;
 arithmetic
-    : '(' arithmetic ')'          #nothing3
+    : '(' arithmetic ')'            #nothing1
     | arithmetic MUL arithmetic     #mul
     | arithmetic DIV arithmetic     #div
     | arithmetic ADD arithmetic     #add
     | arithmetic SUB arithmetic     #sub
-    | SUB number                        #nothing
-    | number                     #intreal
+    | SUB number                    #nothing2
+    | number                        #nothing3
     ;
 
 
@@ -152,7 +160,7 @@ enteroperations
 	: PRINT '(' value ')'              #print
 	| INPUT TYPEINT ID                 #inputint
 	| INPUT TYPEREAL ID                #inputreal
-	| INPUT TYPESTRING '[' INT ']' ID  #inputstring
+	| INPUT TYPESTRING ID             #inputstring
 	;
 number
 	:REAL
@@ -160,7 +168,9 @@ number
 	;
 
 array
-	: ARRAYS'{' value ( ';' value)*'}'
+	: TYPEINT '[' INT ']'
+	| TYPEREAL'[' INT ']'
+	| TYPESTRING '[' INT ']'
 	;
 value
 	:number

@@ -47,6 +47,26 @@ public interface MyGrammarListener extends ParseTreeListener {
 	 */
 	void exitAssigment(MyGrammarParser.AssigmentContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link MyGrammarParser#arrayindex}.
+	 * @param ctx the parse tree
+	 */
+	void enterArrayindex(MyGrammarParser.ArrayindexContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MyGrammarParser#arrayindex}.
+	 * @param ctx the parse tree
+	 */
+	void exitArrayindex(MyGrammarParser.ArrayindexContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link MyGrammarParser#declarationArray}.
+	 * @param ctx the parse tree
+	 */
+	void enterDeclarationArray(MyGrammarParser.DeclarationArrayContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MyGrammarParser#declarationArray}.
+	 * @param ctx the parse tree
+	 */
+	void exitDeclarationArray(MyGrammarParser.DeclarationArrayContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link MyGrammarParser#classDecl}.
 	 * @param ctx the parse tree
 	 */
@@ -207,29 +227,29 @@ public interface MyGrammarListener extends ParseTreeListener {
 	 */
 	void exitMul(MyGrammarParser.MulContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code intreal}
+	 * Enter a parse tree produced by the {@code nothing1}
 	 * labeled alternative in {@link MyGrammarParser#arithmetic}.
 	 * @param ctx the parse tree
 	 */
-	void enterIntreal(MyGrammarParser.IntrealContext ctx);
+	void enterNothing1(MyGrammarParser.Nothing1Context ctx);
 	/**
-	 * Exit a parse tree produced by the {@code intreal}
+	 * Exit a parse tree produced by the {@code nothing1}
 	 * labeled alternative in {@link MyGrammarParser#arithmetic}.
 	 * @param ctx the parse tree
 	 */
-	void exitIntreal(MyGrammarParser.IntrealContext ctx);
+	void exitNothing1(MyGrammarParser.Nothing1Context ctx);
 	/**
-	 * Enter a parse tree produced by the {@code nothing}
+	 * Enter a parse tree produced by the {@code nothing2}
 	 * labeled alternative in {@link MyGrammarParser#arithmetic}.
 	 * @param ctx the parse tree
 	 */
-	void enterNothing(MyGrammarParser.NothingContext ctx);
+	void enterNothing2(MyGrammarParser.Nothing2Context ctx);
 	/**
-	 * Exit a parse tree produced by the {@code nothing}
+	 * Exit a parse tree produced by the {@code nothing2}
 	 * labeled alternative in {@link MyGrammarParser#arithmetic}.
 	 * @param ctx the parse tree
 	 */
-	void exitNothing(MyGrammarParser.NothingContext ctx);
+	void exitNothing2(MyGrammarParser.Nothing2Context ctx);
 	/**
 	 * Enter a parse tree produced by the {@code print}
 	 * labeled alternative in {@link MyGrammarParser#enteroperations}.

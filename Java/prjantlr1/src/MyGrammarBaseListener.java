@@ -63,6 +63,30 @@ public class MyGrammarBaseListener implements MyGrammarListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterArrayindex(MyGrammarParser.ArrayindexContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitArrayindex(MyGrammarParser.ArrayindexContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterDeclarationArray(MyGrammarParser.DeclarationArrayContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitDeclarationArray(MyGrammarParser.DeclarationArrayContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterClassDecl(MyGrammarParser.ClassDeclContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -243,25 +267,25 @@ public class MyGrammarBaseListener implements MyGrammarListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterIntreal(MyGrammarParser.IntrealContext ctx) { }
+	@Override public void enterNothing1(MyGrammarParser.Nothing1Context ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitIntreal(MyGrammarParser.IntrealContext ctx) { }
+	@Override public void exitNothing1(MyGrammarParser.Nothing1Context ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterNothing(MyGrammarParser.NothingContext ctx) { }
+	@Override public void enterNothing2(MyGrammarParser.Nothing2Context ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitNothing(MyGrammarParser.NothingContext ctx) { }
+	@Override public void exitNothing2(MyGrammarParser.Nothing2Context ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
