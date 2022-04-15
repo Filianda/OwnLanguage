@@ -37,7 +37,6 @@ public class LLVMActions2 extends MyGrammarBaseListener {
     @Override
     public void exitAssigment(MyGrammarParser.AssigmentContext ctx) {
         String ID = ctx.ID().getText();
-        // -1 bo mamy cudzyslowia
         if (ctx.arrayindex() == null) {
             Value v = stack.pop();
             variables.put(ID, v.type);
@@ -56,31 +55,38 @@ public class LLVMActions2 extends MyGrammarBaseListener {
                 case STRING:
                     LLVMGenerator2.declare_assign_string(ID, v.name);
                     break;
+                default:
+                    error(ctx.getStart().getLine(), "Assigment type mismatch");
+                    break;
             }
-        }
-
-        if (ctx.arrayindex() != null) {
+        } else if (ctx.arrayindex() != null) {
             int index = Integer.parseInt(ctx.arrayindex().INT().getText());
             Value v = structers.get(ID);
             if (index <= v.size) {
                 switch (v.type) {
                     case INT:
-                        String elementInt = ctx.number().INT().getText();
-                        LLVMGenerator2.assign_i32_array(ID, v.size, index, elementInt);
+                        if (ctx.number().INT() != null) {
+                            String elementInt = ctx.number().INT().getText();
+                            LLVMGenerator2.assign_i32_array(ID, v.size, index, elementInt);
+                        } else {
+                            error(ctx.getStart().getLine(), "Array element type mismatch");
+                        }
                         break;
 
                     case REAL:
-                        String elementReal = ctx.number().REAL().getText();
-                        LLVMGenerator2.assign_double_array(ID, v.size, index, elementReal);
+                        if (ctx.number().REAL() != null) {
+                            String elementReal = ctx.number().REAL().getText();
+                            LLVMGenerator2.assign_double_array(ID, v.size, index, elementReal);
+                        } else {
+                            error(ctx.getStart().getLine(), "Array element type mismatch");
+                        }
                         break;
+
                 }
             } else {
-                error(ctx.getStart().getLine(), "ArrayIndexOutOfBoundException");
+                error(ctx.getStart().getLine(), "ArrayIndexOutOfBoundException or assigment type mismatch");
             }
         }
-//        else {
-//            error(ctx.getStart().getLine(), "assigment type mismatch");
-//        }
     }
 
     @Override
@@ -90,8 +96,7 @@ public class LLVMActions2 extends MyGrammarBaseListener {
         structers.put(ID, v);
         if (v.type == VarType.INT) {
             LLVMGenerator2.declare_i32_array(ID, v.size);
-        }
-        if (v.type == VarType.REAL) {
+        } else if (v.type == VarType.REAL) {
             LLVMGenerator2.declare_double_array(ID, v.size);
         }
     }
@@ -100,20 +105,21 @@ public class LLVMActions2 extends MyGrammarBaseListener {
     public void exitNumber(MyGrammarParser.NumberContext ctx) {
         if (ctx.INT() != null) {
             stack.push(new Value(ctx.INT().getText(), VarType.INT, StructureType.VARIABLE, 0));
-        }
-        if (ctx.REAL() != null) {
+        } else if (ctx.REAL() != null) {
             stack.push(new Value(ctx.REAL().getText(), VarType.REAL, StructureType.VARIABLE, 0));
+        } else {
+            error(ctx.getStart().getLine(), "numeric type syntax mismatch");
         }
     }
 
     @Override
     public void exitArray(MyGrammarParser.ArrayContext ctx) {
-        // zrobic ify obslugujece rozne typy
         if (ctx.TYPEINT() != null) {
             arraysdefinisions.push(new Value("", VarType.INT, StructureType.ARRAY, Integer.parseInt(ctx.INT().getText())));
-        }
-        if (ctx.TYPEREAL() != null) {
+        } else if (ctx.TYPEREAL() != null) {
             arraysdefinisions.push(new Value("", VarType.REAL, StructureType.ARRAY, Integer.parseInt(ctx.INT().getText())));
+        } else {
+            error(ctx.getStart().getLine(), "array type syntax mismatch");
         }
     }
 
@@ -225,7 +231,6 @@ public class LLVMActions2 extends MyGrammarBaseListener {
     @Override
     public void exitInputreal(MyGrammarParser.InputrealContext ctx) {
         String ID = ctx.ID().getText();
-
         if (!variables.containsKey(ID)) {
             variables.put(ID, VarType.REAL);
             LLVMGenerator2.declare_double(ID);

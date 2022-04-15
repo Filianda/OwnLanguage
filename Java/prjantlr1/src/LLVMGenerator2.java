@@ -126,7 +126,7 @@ class LLVMGenerator2 {
     }
     static void declare_array(String id, int size, String type) {
             header_text+= "@" + id + " = common dso_local global ["+size+" x "+type+"] zeroinitializer, align 16\n";
-            main_text+= "%" + id + " = alloca["+size+"x i32], align 16\n";
+            main_text+= "%" + id + " = alloca["+size+"x "+type+"], align 16\n";
 
     }
     static void declare_i32_array(String id, int size) {
